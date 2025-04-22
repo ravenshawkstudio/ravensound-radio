@@ -98,7 +98,7 @@ img {
 
 .logo {
     height: auto;
-    width: 100%;
+    width: 120%;
     max-height: 80px;
     object-fit: contain;
 }
