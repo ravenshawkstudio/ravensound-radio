@@ -6,88 +6,199 @@
     <title>Ravensound Radio</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-            <img src="logo-black-horizontal.png" alt="Ravensound Radio" class="logo">
-        </div>
-        <div class="live-player-container">
-            <div class="player-header">
-                <h3>LIVE STREAM</h3>
+    <div class="noise-overlay"></div>
+    
+    <div class="page-container">
+        <header class="main-header">
+            <div class="logo-container">
+                <img src="logo-black-horizontal.png" alt="Ravensound Radio" class="logo">
             </div>
-            <div class="live365-player">
-                <iframe width="100%" height="150" frameborder="0" src="https://live365.com/embeds/v1/player/a63793?s=md&m=dark&c=mp3"></iframe>
+            
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">Music</a></li>
-                <li><a href="#">News</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <section class="hero">
-            <div class="hero-left">
-                <h1>HEAR THE WORLD.</h1>
-                <h2>FEEL THE RHYTHM.</h2>
-                <p class="subheading">Curated sets from every corner of the globe — no borders, just beats.</p>
-                <button class="live-btn">We're Live Now</button>
-                <p class="player-caption">Tune in for global grooves, non-stop rhythms, and sonic journeys beyond borders.</p>
-            </div>
-            <div class="hero-right">
-                <div class="brand-container">
-                    <h2 class="brand-title">3 BEATS</h2>
-                    <h3 class="brand-subtitle">3 BORDERS</h3>
-                    <p class="tagline">TUNE IN EVERY MONDAY</p>
+            
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#" class="nav-link">Music</a></li>
+                    <li><a href="#" class="nav-link">News</a></li>
+                    <li><a href="#" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <div class="live-player-wrapper">
+            <div class="live-player-container">
+                <div class="player-header">
+                    <div class="pulse-icon"></div>
+                    <h3>LIVE STREAM</h3>
                 </div>
-                <div class="dj-image-container">
-                    <div class="dj-image">
-                        <img src="threebeats.jpg" alt="3 Beats 3 Borders" class="hero-image">
-                        <div class="wave-accent"></div>
+                <div class="live365-player">
+                    <iframe width="100%" height="150" frameborder="0" src="https://live365.com/embeds/v1/player/a63793?s=md&m=dark&c=mp3"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <main>
+            <section class="hero">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1 class="animated-text">HEAR THE WORLD.</h1>
+                        <h2 class="animated-text delay-1">FEEL THE RHYTHM.</h2>
+                        <p class="subheading animated-text delay-2">Curated sets from every corner of the globe — no borders, just beats.</p>
+                        <button class="live-btn animated-text delay-3">We're Live Now</button>
+                        <div class="sound-wave">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
                     </div>
-                    <p class="image-caption">From Tokyo funk to Lagos afrobeat, discover soundscapes from across continents.</p>
-                    <p class="image-subcaption">This week's spotlight: Beats from Brazil, Morocco, and Indonesia.</p>
                 </div>
-            </div>
-        </section>
+                
+                <div class="brand-showcase">
+                    <div class="brand-container">
+                        <h2 class="brand-title">3 BEATS</h2>
+                        <h3 class="brand-subtitle">3 BORDERS</h3>
+                        <p class="tagline">TUNE IN EVERY MONDAY</p>
+                    </div>
+                    
+                    <div class="image-gallery">
+                        <div class="gallery-item active">
+                            <img src="threebeats.png" alt="3 Beats 3 Borders" class="gallery-image">
+                            <div class="image-overlay">
+                                <div class="wave-accent"></div>
+                                <div class="image-caption">
+                                    <h4>Global Soundscapes</h4>
+                                    <p>From Tokyo funk to Lagos afrobeat, discover sounds from across continents.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="spotlight-text">This week's spotlight: Beats from Brazil, Morocco, and Indonesia.</p>
+                </div>
+            </section>
 
-        <section class="features">
-            <div class="feature-item">
-                <div class="icon-circle">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
-                    </svg>
+            <section class="features">
+                <h2 class="section-title">Experience Ravensound</h2>
+                
+                <div class="features-grid">
+                    <div class="feature-item" data-aos="fade-up">
+                        <div class="feature-icon">
+                            <i class="fas fa-broadcast-tower"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Live Broadcasting</h3>
+                            <p>24/7 global beats streamed directly to your devices</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Guide Support</h3>
+                            <p>Expert curation and musical journey guidance</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-icon">
+                            <i class="fas fa-circle-play"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Now Live</h3>
+                            <p>Real-time broadcasts from around the world</p>
+                        </div>
+                    </div>
                 </div>
-                <p>Live Broadcasting</p>
-            </div>
-            <div class="feature-item">
-                <div class="icon-triangle">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                    </svg>
+            </section>
+            
+            <section class="upcoming-shows">
+                <h2 class="section-title">Upcoming Shows</h2>
+                
+                <div class="shows-grid">
+                    <div class="show-card">
+                        <div class="show-date">MON</div>
+                        <div class="show-details">
+                            <h3>Tokyo Nights</h3>
+                            <p>8:00 PM - 10:00 PM</p>
+                            <span class="show-genre">City Pop & J-Funk</span>
+                        </div>
+                    </div>
+                    
+                    <div class="show-card">
+                        <div class="show-date">WED</div>
+                        <div class="show-details">
+                            <h3>Lagos Groove</h3>
+                            <p>7:00 PM - 9:00 PM</p>
+                            <span class="show-genre">Afrobeat & Highlife</span>
+                        </div>
+                    </div>
+                    
+                    <div class="show-card">
+                        <div class="show-date">FRI</div>
+                        <div class="show-details">
+                            <h3>Rio Rhythms</h3>
+                            <p>9:00 PM - 11:00 PM</p>
+                            <span class="show-genre">Bossa Nova & Samba</span>
+                        </div>
+                    </div>
                 </div>
-                <p>Guide Support</p>
-            </div>
-            <div class="feature-item">
-                <div class="icon-badge">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M12 8v8M8 12h8"></path>
-                    </svg>
-                </div>
-                <p>Now Live</p>
-            </div>
-        </section>
-    </main>
+            </section>
+        </main>
 
-    <footer>
-        <p>Tune in on tunein app or livestream podcast</p>
-    </footer>
-
+        <footer class="main-footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="logo-black-horizontal.png" alt="Ravensound Radio" class="footer-logo-img">
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Schedule</a></li>
+                        <li><a href="#">DJs</a></li>
+                        <li><a href="#">Archive</a></li>
+                        <li><a href="#">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-social">
+                    <h3>Connect With Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-soundcloud"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-spotify"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-subscribe">
+                    <h3>Stay Updated</h3>
+                    <form class="subscribe-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Ravensound Radio. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
