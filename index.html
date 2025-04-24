@@ -5,196 +5,498 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ravensound Radio</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Background Elements -->
     <div class="noise-overlay"></div>
+    <div class="gradient-bg"></div>
+    <div class="grid-overlay"></div>
     
-    <div class="page-container">
-        <header class="main-header">
-            <div class="logo-container">
-                <img src="logo-black-horizontal.png" alt="Ravensound Radio" class="logo">
+    <!-- Main Container -->
+    <div class="site-container">
+        <!-- Navigation -->
+        <header class="site-header">
+            <div class="header-container">
+                <div class="logo">
+                    <img src="logo-black-horizontal.png" alt="Ravensound Radio">
+                </div>
+                
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li><a href="#broadcasts" class="nav-link">Broadcasts</a></li>
+                        <li><a href="#shows" class="nav-link">Shows</a></li>
+                        <li><a href="#about" class="nav-link">About</a></li>
+                        <li><a href="#contact" class="nav-link">Contact</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header-actions">
+                    <button class="live-now-btn" id="liveNowBtn">
+                        <span class="pulse-indicator"></span>
+                        <span>Listen Now</span>
+                    </button>
+                    
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
             </div>
-            
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="#" class="nav-link">Music</a></li>
-                    <li><a href="#" class="nav-link">News</a></li>
-                    <li><a href="#" class="nav-link">Contact</a></li>
-                </ul>
-            </nav>
         </header>
         
-        <div class="live-player-wrapper">
-            <div class="live-player-container">
-                <div class="player-header">
-                    <div class="pulse-icon"></div>
-                    <h3>LIVE STREAM</h3>
+        <!-- Audio Player Modal -->
+        <div class="audio-player-modal" id="audioPlayerModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="station-info">
+                        <div class="station-logo">
+                            <img src="logo-black-horizontal.png" alt="Ravensound Radio">
+                        </div>
+                        <div class="now-playing">
+                            <div class="live-indicator">
+                                <span class="live-dot"></span>
+                                <span>LIVE</span>
+                            </div>
+                            <h3 class="track-title">Global Beats</h3>
+                            <p class="track-artist">Ravensound Radio</p>
+                        </div>
+                    </div>
+                    <button class="modal-close" id="closePlayerBtn">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
-                <div class="live365-player">
-                    <iframe width="600" height="336" frameborder="0" src="https://live365.com/embeds/v1/player/a63793?s=lg&m=light&c=mp3"></iframe>
+                
+                <div class="player-visualizer">
+                    <div class="visualizer-container">
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <main>
-            <section class="hero">
-                <div class="hero-content">
-                    <div class="hero-text">
-                        <h1 class="animated-text">HEAR THE WORLD.</h1>
-                        <h2 class="animated-text delay-1">FEEL THE RHYTHM.</h2>
-                        <p class="subheading animated-text delay-2">Curated sets from every corner of the globe — no borders, just beats.</p>
-                        <button class="live-btn animated-text delay-3">Listen Live Now</button>
-                        <div class="sound-wave">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
+                
+                <div class="player-controls">
+                    <div class="control-buttons">
+                        <button class="control-btn" id="playPauseBtn">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="volume-control">
+                        <button class="volume-btn">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <div class="volume-slider-container">
+                            <input type="range" class="volume-slider" min="0" max="100" value="80">
                         </div>
                     </div>
                 </div>
                 
-                <div class="brand-showcase">
-                    <div class="brand-container">
-                        <h2 class="brand-title">3 BEATS</h2>
-                        <h3 class="brand-subtitle">3 BORDERS</h3>
-                        <p class="tagline">TUNE IN EVERY MONDAY</p>
-                    </div>
+                <audio id="audioPlayer" src="https://stream.live365.com/a63793" preload="none"></audio>
+            </div>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero-section" id="home">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="glitch-text" data-text="HEAR THE WORLD.">HEAR THE WORLD.</h1>
+                    <h2 class="reveal-text">FEEL THE RHYTHM.</h2>
+                    <p class="hero-description">Curated sets from every corner of the globe — no borders, just beats.</p>
                     
-                    <div class="image-gallery">
-                        <div class="gallery-item active">
-                            <img src="threebeats.png" alt="3 Beats 3 Borders" class="gallery-image">
-                            <div class="image-overlay">
-                                <div class="wave-accent"></div>
-                                <div class="image-caption">
-                                    <h4>Global Soundscapes</h4>
-                                    <p>From Tokyo funk to Lagos afrobeat, discover sounds from across continents.</p>
-                                </div>
+                    <div class="hero-cta">
+                        <button class="primary-btn" id="listenHeroBtn">
+                            <span class="btn-text">LISTEN NOW</span>
+                            <span class="btn-icon"><i class="fas fa-headphones"></i></span>
+                        </button>
+                        <a href="#schedule" class="secondary-btn">
+                            <span class="btn-text">VIEW SCHEDULE</span>
+                            <span class="btn-icon"><i class="fas fa-calendar"></i></span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="featured-show">
+                        <div class="show-card">
+                            <div class="show-artwork">
+                                <img src="threebeats.png" alt="3 Beats 3 Borders">
+                                <div class="artwork-overlay"></div>
+                            </div>
+                            <div class="show-info">
+                                <h3 class="show-title">3 BEATS</h3>
+                                <h4 class="show-subtitle">3 BORDERS</h4>
+                                <p class="show-time">TUNE IN EVERY MONDAY</p>
+                                <p class="show-description">From Tokyo funk to Lagos afrobeat, discover sounds from across continents.</p>
                             </div>
                         </div>
                     </div>
                     
-                    <p class="spotlight-text">This week's spotlight: Beats from Brazil, Morocco, and Indonesia.</p>
-                </div>
-            </section>
 
-            <section class="features">
-                <h2 class="section-title">Experience Ravensound</h2>
-                
-                <div class="features-grid">
-                    <div class="feature-item" data-aos="fade-up">
-                        <div class="feature-icon">
-                            <i class="fas fa-broadcast-tower"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h3>Live Broadcasting</h3>
-                            <p>24/7 global beats streamed directly to your devices</p>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
-                        <div class="feature-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h3>Guide Support</h3>
-                            <p>Expert curation and musical journey guidance</p>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
-                        <div class="feature-icon">
-                            <i class="fas fa-circle-play"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h3>Now Live</h3>
-                            <p>Real-time broadcasts from around the world</p>
-                        </div>
-                    </div>
                 </div>
-            </section>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section" id="broadcasts">
+            <div class="section-header">
+                <h2 class="section-title">Global Broadcasts</h2>
+                <div class="section-line"></div>
+            </div>
             
-            <section class="upcoming-shows">
-                <h2 class="section-title">Upcoming Shows</h2>
+            <div class="features-container">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-satellite-dish"></i>
+                    </div>
+                    <h3 class="feature-title">Live Streaming</h3>
+                    <p class="feature-description">24/7 global beats streamed in high-definition audio directly to any device, anywhere in the world.</p>
+                    <div class="feature-accent"></div>
+                </div>
                 
-                <div class="shows-grid">
-                    <div class="show-card">
-                        <div class="show-date">MON</div>
-                        <div class="show-details">
-                            <h3>Tokyo Nights</h3>
-                            <p>8:00 PM - 10:00 PM</p>
-                            <span class="show-genre">City Pop & J-Funk</span>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="feature-title">Global Curation</h3>
+                    <p class="feature-description">Expertly curated music from every continent, bringing you authentic sounds from cultures around the world.</p>
+                    <div class="feature-accent"></div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headphones-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Immersive Audio</h3>
+                    <p class="feature-description">Studio-quality sound engineering ensures every beat, note, and rhythm comes through with crystal clarity.</p>
+                    <div class="feature-accent"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Schedule Section -->
+        <section class="schedule-section" id="shows">
+            <div class="section-header">
+                <h2 class="section-title">Weekly Schedule</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="schedule-container">
+                <div class="schedule-nav">
+                    <button class="schedule-day active" data-day="monday">MON</button>
+                    <button class="schedule-day" data-day="tuesday">TUE</button>
+                    <button class="schedule-day" data-day="wednesday">WED</button>
+                    <button class="schedule-day" data-day="thursday">THU</button>
+                    <button class="schedule-day" data-day="friday">FRI</button>
+                    <button class="schedule-day" data-day="weekend">WEEKEND</button>
+                </div>
+                
+                <div class="schedule-content">
+                    <!-- MONDAY SCHEDULE -->
+                    <div class="schedule-day-content active" id="monday-schedule">
+                        <div class="show-item">
+                            <div class="show-time">8:00 PM - 10:00 PM</div>
+                            <div class="show-details">
+                                <h3 class="show-title">TOKYO NIGHTS</h3>
+                                <span class="show-genre">City Pop & J-Funk</span>
+                                <p class="show-description">Immerse yourself in the neon-lit soundscapes of Tokyo's vibrant music scene, from city pop classics to modern J-funk.</p>
+                            </div>
+                            <div class="show-action">
+                                <button class="remind-btn"><i class="fas fa-bell"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="show-item">
+                            <div class="show-time">10:00 PM - 12:00 AM</div>
+                            <div class="show-details">
+                                <h3 class="show-title">3 BEATS 3 BORDERS</h3>
+                                <span class="show-genre">Global Fusion</span>
+                                <p class="show-description">Our flagship show featuring three distinct musical styles from three different countries, blended into a seamless journey.</p>
+                            </div>
+                            <div class="show-action">
+                                <button class="remind-btn"><i class="fas fa-bell"></i></button>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="show-card">
-                        <div class="show-date">WED</div>
-                        <div class="show-details">
-                            <h3>Lagos Groove</h3>
-                            <p>7:00 PM - 9:00 PM</p>
-                            <span class="show-genre">Afrobeat & Highlife</span>
+                    <!-- TUESDAY SCHEDULE -->
+                    <div class="schedule-day-content" id="tuesday-schedule">
+                        <div class="show-item">
+                            <div class="show-time">8:00 PM - 10:00 PM</div>
+                            <div class="show-details">
+                                <h3 class="show-title">LATIN LOOP</h3>
+                                <span class="show-genre">Reggaetón, Cumbia, Future Latino</span>
+                                <p class="show-description">From Bogotá to Buenos Aires, groove through the Latin underground and mainstream heat with high-energy rhythms and deep flow.</p>
+                            </div>
+                            <div class="show-action">
+                                <button class="remind-btn"><i class="fas fa-bell"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="show-item">
+                            <div class="show-time">10:00 PM - 12:00 AM</div>
+                            <div class="show-details">
+                                <h3 class="show-title">NIGHTDRIVE NOSTALGIA</h3>
+                                <span class="show-genre">Synthwave & Global Retro</span>
+                                <p class="show-description">Retro-futuristic vibes and analog warmth, drawing sounds from Seoul, São Paulo, and beyond.</p>
+                            </div>
+                            <div class="show-action">
+                                <button class="remind-btn"><i class="fas fa-bell"></i></button>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="show-card">
-                        <div class="show-date">FRI</div>
-                        <div class="show-details">
-                            <h3>Rio Rhythms</h3>
-                            <p>9:00 PM - 11:00 PM</p>
-                            <span class="show-genre">Bossa Nova & Samba</span>
+                    <!-- WEDNESDAY SCHEDULE -->
+                    <div class="schedule-day-content" id="wednesday-schedule">
+                        <div class="show-item">
+                            <div class="show-time">8:00 PM - 10:00 PM</div>
+                            <div class="show-details">
+                                <h3 class="show-title">AFROSONIC</h3>
+                                <span class="show-genre">Afrobeats, Alté, and Afrohouse</span>
+                                <p class="show-description">Dive into the rhythm of Lagos, Accra, and Johannesburg with this pulse-pounding celebration of African modern music.</p>
+                            </div>
+                            <div class="show-action">
+                                <button class="remind-btn"><i class="fas fa-bell"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="show-item">
+                            <div class="show-time">10:00 PM - 12:00 AM</div>
+                            <div class="show-details">
+                                <h3 class="show-title">WAVES OF THE EAST</h3>
+                                <span class="show-genre">Middle Eastern, North African & South Asian Fusions</span>
+                                <p class="show-description">Traditional instruments meet global beats in this east-to-west blend of ancient soul and future rhythm.</p>
+                            </div>
+                            <div class="show-action">
+                                <button class="remind-btn"><i class="fas fa-bell"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- THURSDAY SCHEDULE -->
+                    <div class="schedule-day-content" id="thursday-schedule">
+                        <div class="show-item">
+                            <div class="show-time">8:00 PM - 10:00 PM</div>
+                            <div class="show-details">
+                                <h3 class="show-title">EUROSONIK</h3>
+                                <span class="show-genre">French Touch, UK Garage, Berlin Electronica</span>
+                                <p class="show-description">A sonic passport across European club culture, from Parisian grooves to underground Berlin tech.</p>
+                            </div>
+                            <div class="show-action">
+                                <button class="remind-btn"><i class="fas fa-bell"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="show-item">
+                            <div class="show-time">10:00 PM - 12:00 AM</div>
+                            <div class="show-details">
+                                <h3 class="show-title">CITY STROLLS</h3>
+                                <span class="show-genre">Lo-Fi, Chillhop & Global Downtempo</span>
+                                <p class="show-description">Soundtrack your late-night unwind with smooth lo-fi and chill beats from cities around the globe.</p>
+                            </div>
+                            <div class="show-action">
+                                <button class="remind-btn"><i class="fas fa-bell"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FRIDAY SCHEDULE -->
+                    <div class="schedule-day-content" id="friday-schedule">
+                        <div class="show-item">
+                            <div class="show-time">8:00 PM - 10:00 PM</div>
+                            <div class="show-details">
+                                <h3 class="show-title">GLOBAL PARTY PULSE</h3>
+                                <span class="show-genre">Dance, Baile Funk, Afro-Latin House</span>
+                                <p class="show-description">Feel the Friday night energy with dancefloor anthems and raw club rhythms from every hemisphere.</p>
+                            </div>
+                            <div class="show-action">
+                                <button class="remind-btn"><i class="fas fa-bell"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="show-item">
+                            <div class="show-time">10:00 PM - 12:00 AM</div>
+                            <div class="show-details">
+                                <h3 class="show-title">SOUNDTRAVELER SESSIONS</h3>
+                                <span class="show-genre">Genre-Bending Live Sets</span>
+                                <p class="show-description">Guest curators and experimental journeys that blend cultures, borders, and BPMs.</p>
+                            </div>
+                            <div class="show-action">
+                                <button class="remind-btn"><i class="fas fa-bell"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- WEEKEND SCHEDULE -->
+                    <div class="schedule-day-content" id="weekend-schedule">
+                        <div class="show-item">
+                            <div class="show-time">8:00 PM - 10:00 PM</div>
+                            <div class="show-details">
+                                <h3 class="show-title">CINEMATICA</h3>
+                                <span class="show-genre">World Film Soundtracks & Orchestral Grooves</span>
+                                <p class="show-description">A cinematic escape with scores, instrumentals, and global soundtracks — from Bollywood epics to French noirs.</p>
+                            </div>
+                            <div class="show-action">
+                                <button class="remind-btn"><i class="fas fa-bell"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="show-item">
+                            <div class="show-time">10:00 PM - 12:00 AM</div>
+                            <div class="show-details">
+                                <h3 class="show-title">PLANET RHYTHMS</h3>
+                                <span class="show-genre">Rotating World Music Show</span>
+                                <p class="show-description">Sundown journeys across continents — from Afro-Cuban percussion to Indian classical to Balkan brass.</p>
+                            </div>
+                            <div class="show-action">
+                                <button class="remind-btn"><i class="fas fa-bell"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </section>
-        </main>
+            </div>
+        </section>
+        
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div class="section-header">
+                <h2 class="section-title">Our Story</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="about-container">
+                <div class="about-content">
+                    <p class="about-text">Ravensound Radio was born from a passion for global music and a desire to connect cultures through sound. Our mission is to bring you authentic musical experiences from every corner of the world, breaking down borders through the universal language of rhythm.</p>
+                    
+                    <p class="about-text">Our team of dedicated curators and DJs scour the globe to find the most exciting sounds, from traditional folk music to cutting-edge electronic fusion. We believe that music is a powerful force for cultural understanding and celebration.</p>
+                    
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Broadcasting</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Countries</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100K+</span>
+                            <span class="stat-label">Listeners</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-image">
+                    <div class="image-frame">
+                        <img src="threebeats.png" alt="Ravensound Studio">
+                        <div class="frame-accent"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="section-header">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-form-container">
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="4" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <span>Send Message</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Email Us</h3>
+                            <p>hello@ravensoundradio.com</p>
+                        </div>
+                    </div>
+                    
 
-        <footer class="main-footer">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <img src="logo-black-horizontal.png" alt="Ravensound Radio" class="footer-logo-img">
-                </div>
-                
-                <div class="footer-links">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#">Schedule</a></li>
-                        <li><a href="#">DJs</a></li>
-                        <li><a href="#">Archive</a></li>
-                        <li><a href="#">About Us</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-social">
-                    <h3>Connect With Us</h3>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-soundcloud"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-spotify"></i></a>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
                     </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-container">
+                <div class="footer-logo">
+                    <img src="logo-black-horizontal.png" alt="Ravensound Radio">
+                </div>
+                
+                <div class="footer-nav">
+                    <ul class="footer-links">
+                        <li><a href="#broadcasts">Broadcasts</a></li>
+                        <li><a href="#shows">Shows</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
                 </div>
                 
                 <div class="footer-subscribe">
                     <h3>Stay Updated</h3>
-                    <form class="subscribe-form">
-                        <input type="email" placeholder="Your email address" required>
-                        <button type="submit">Subscribe</button>
-                    </form>
+                    <div class="subscribe-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit"><i class="fas fa-arrow-right"></i></button>
+                    </div>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2025 Ravensound Radio. All rights reserved.</p>
+                <p>&copy; 2025 Ravensound Radio by Ravenshawk Studio. All Rights Reserved.</p>
             </div>
         </footer>
     </div>
