@@ -1,15 +1,37 @@
 // Ravensound Radio - Main JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile navigation toggle
-    const navToggle = document.getElementById('navToggle');
+    // DOM Elements
+    const menuToggle = document.getElementById('menuToggle');
     const mainNav = document.querySelector('.main-nav');
+    const liveNowBtn = document.getElementById('liveNowBtn');
+    const listenHeroBtn = document.getElementById('listenHeroBtn');
+    const audioPlayerModal = document.getElementById('audioPlayerModal');
+    const closePlayerBtn = document.getElementById('closePlayerBtn');
+    const audioPlayer = document.getElementById('audioPlayer');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const volumeSlider = document.querySelector('.volume-slider');
+    const volumeBtn = document.querySelector('.volume-btn');
+    const visualizerBars = document.querySelectorAll('.visualizer-bar');
+    const scheduleDays = document.querySelectorAll('.schedule-day');
+    const scheduleDayContents = document.querySelectorAll('.schedule-day-content');
     
-    if (navToggle) {
-        navToggle.addEventListener('click', () => {
-            navToggle.classList.toggle('active');
+    // Mobile Navigation Toggle
+    if (menuToggle && mainNav) {
+        menuToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
             mainNav.classList.toggle('active');
             document.body.classList.toggle('nav-open');
+            
+            // Toggle menu icon animation
+            const spans = this.querySelectorAll('span');
+            if (this.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.transform = 'rotate(-45deg)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.transform = 'none';
+            }
         });
     }
     
@@ -17,117 +39,264 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', (e) => {
         if (mainNav && mainNav.classList.contains('active') && 
             !e.target.closest('.main-nav') && 
-            !e.target.closest('#navToggle')) {
+            !e.target.closest('#menuToggle')) {
             mainNav.classList.remove('active');
-            if (navToggle) navToggle.classList.remove('active');
+            if (menuToggle) menuToggle.classList.remove('active');
             document.body.classList.remove('nav-open');
         }
     });
-    
-    // Live button effect
-    const liveBtn = document.querySelector('.live-btn');
-    if (liveBtn) {
-        liveBtn.addEventListener('click', function() {
-            // Scroll to player
-            const playerSection = document.querySelector('.live-player-wrapper');
-            if (playerSection) {
-                playerSection.scrollIntoView({ behavior: 'smooth' });
-            }
-            
-            // Add pulse effect
-            this.classList.add('pulse');
-            setTimeout(() => {
-                this.classList.remove('pulse');
-            }, 1000);
-        });
-    }
     
     // Animated wave accents
     const animateWaves = () => {
         const waves = document.querySelectorAll('.wave-accent');
         waves.forEach(wave => {
-            wave.animate([
-                { backgroundPosition: '0% 0%' },
-                { backgroundPosition: '100% 100%' }
-            ], {
-                duration: 15000,
-                iterations: Infinity,
-                direction: 'alternate',
-                easing: 'ease-in-out'
-            });
+            if (wave.animate) {
+                wave.animate([
+                    { backgroundPosition: '0% 0%' },
+                    { backgroundPosition: '100% 100%' }
+                ], {
+                    duration: 15000,
+                    iterations: Infinity,
+                    direction: 'alternate',
+                    easing: 'ease-in-out'
+                });
+            }
         });
     };
     
     // Run wave animation
     animateWaves();
     
-    // Add scroll animations
-    const animateOnScroll = () => {
-        const elements = document.querySelectorAll('.feature-item, .show-card, .section-title, .gallery-item');
-        
-        elements.forEach(element => {
-            const elementPosition = element.getBoundingClientRect().top;
-            const windowHeight = window.innerHeight;
-            
-            if (elementPosition < windowHeight * 0.9) {
-                element.classList.add('animate');
+    // Audio Player Modal Functions
+    const openAudioPlayer = () => {
+        if (audioPlayerModal) {
+            audioPlayerModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    };
+    
+    const closeAudioPlayer = () => {
+        if (audioPlayerModal) {
+            audioPlayerModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    };
+    
+    // Open player from header button
+    if (liveNowBtn) {
+        liveNowBtn.addEventListener('click', openAudioPlayer);
+    }
+    
+    // Open player from hero button
+    if (listenHeroBtn) {
+        listenHeroBtn.addEventListener('click', openAudioPlayer);
+    }
+    
+    // Close player
+    if (closePlayerBtn) {
+        closePlayerBtn.addEventListener('click', () => {
+            closeAudioPlayer();
+            if (audioPlayer && !audioPlayer.paused) {
+                audioPlayer.pause();
+                updatePlayPauseButton(false);
             }
+        });
+    }
+    
+    // Audio Player Controls
+    const initAudioPlayer = () => {
+        if (!audioPlayer || !playPauseBtn) return;
+        
+        // Play/Pause functionality
+        playPauseBtn.addEventListener('click', togglePlayPause);
+        
+        // Volume control
+        if (volumeSlider) {
+            volumeSlider.addEventListener('input', () => {
+                const volume = volumeSlider.value / 100;
+                audioPlayer.volume = volume;
+                updateVolumeIcon(volume);
+            });
+        }
+        
+        // Mute/Unmute
+        if (volumeBtn) {
+            volumeBtn.addEventListener('click', toggleMute);
+        }
+        
+        // Handle errors
+        audioPlayer.addEventListener('error', (e) => {
+            console.error('Audio player error:', e);
+            alert('Unable to play the live stream. Click OK to open the station in a new tab.');
+            window.open('https://live365.com/station/Ravensound-Radio-a63793', '_blank');
         });
     };
     
-    // Run on load
-    animateOnScroll();
-    
-    // Run on scroll
-    window.addEventListener('scroll', animateOnScroll);
-    
-    // Add smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+    const togglePlayPause = () => {
+        if (audioPlayer.paused) {
+            audioPlayer.play()
+                .then(() => {
+                    updatePlayPauseButton(true);
+                    activateVisualizer(true);
+                })
+                .catch(error => {
+                    console.error('Error playing audio:', error);
+                    // Fallback - open in new window
+                    window.open('https://live365.com/station/Ravensound-Radio-a63793', '_blank');
                 });
+        } else {
+            audioPlayer.pause();
+            updatePlayPauseButton(false);
+            activateVisualizer(false);
+        }
+    };
+    
+    const updatePlayPauseButton = (isPlaying) => {
+        if (playPauseBtn) {
+            playPauseBtn.innerHTML = isPlaying ? 
+                '<i class="fas fa-pause"></i>' : 
+                '<i class="fas fa-play"></i>';
+        }
+    };
+    
+    const toggleMute = () => {
+        if (audioPlayer.volume > 0) {
+            audioPlayer.dataset.prevVolume = audioPlayer.volume;
+            audioPlayer.volume = 0;
+            volumeSlider.value = 0;
+            updateVolumeIcon(0);
+        } else {
+            const prevVolume = audioPlayer.dataset.prevVolume || 0.8;
+            audioPlayer.volume = prevVolume;
+            volumeSlider.value = prevVolume * 100;
+            updateVolumeIcon(prevVolume);
+        }
+    };
+    
+    const updateVolumeIcon = (volume) => {
+        if (!volumeBtn) return;
+        
+        if (volume === 0) {
+            volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        } else if (volume < 0.5) {
+            volumeBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
+        } else {
+            volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+        }
+    };
+    
+    const activateVisualizer = (active) => {
+        if (!visualizerBars.length) return;
+        
+        visualizerBars.forEach(bar => {
+            bar.style.animationPlayState = active ? 'running' : 'paused';
+        });
+    };
+    
+    // Schedule Tabs
+    if (scheduleDays.length && scheduleDayContents.length) {
+        scheduleDays.forEach(day => {
+            day.addEventListener('click', () => {
+                // Remove active class from all days
+                scheduleDays.forEach(d => d.classList.remove('active'));
+                
+                // Add active class to clicked day
+                day.classList.add('active');
+                
+                // Hide all content
+                scheduleDayContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Show selected content
+                const dayId = day.getAttribute('data-day');
+                const selectedContent = document.getElementById(`${dayId}-schedule`);
+                if (selectedContent) {
+                    selectedContent.classList.add('active');
+                    
+                    // Force immediate display of show items
+                    const showItems = selectedContent.querySelectorAll('.show-item');
+                    showItems.forEach(item => {
+                        item.classList.add('animated');
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    });
+                }
+            });
+        });
+    }
+    
+    // Smooth Scrolling for Anchor Links
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    anchorLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === '#') return;
+            
+            e.preventDefault();
+            const targetElement = document.querySelector(href);
+            
+            if (targetElement) {
+                const headerOffset = 100;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                if (menuToggle && menuToggle.classList.contains('active')) {
+                    menuToggle.click();
+                }
             }
         });
     });
     
-    // Sound wave animation
-    const soundWave = document.querySelector('.sound-wave');
-    if (soundWave) {
-        const spans = soundWave.querySelectorAll('span');
-        spans.forEach((span, index) => {
-            const delay = index * 0.1;
-            span.style.animation = `sound-wave-animation 1.2s ${delay}s infinite alternate`;
+    // Scroll Animation for Elements
+    const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.feature-card, .show-item, .about-stats, .contact-form-container');
+        
+        elements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const elementBottom = element.getBoundingClientRect().bottom;
+            const windowHeight = window.innerHeight;
+            
+            if (elementTop < windowHeight * 0.8 && elementBottom > 0) {
+                element.classList.add('animated');
+            }
         });
-    }
+    };
     
-    // Add CSS for the animations
+    // Add animated class to elements in view on page load
+    window.addEventListener('load', animateOnScroll);
+    
+    // Add animated class to elements as they come into view on scroll
+    window.addEventListener('scroll', animateOnScroll);
+    
+    // Initialize Audio Player
+    initAudioPlayer();
+    
+    // Add CSS for animations
     const style = document.createElement('style');
     style.textContent = `
-        .feature-item, .show-card, .section-title, .gallery-item {
+        .feature-card, .show-item, .about-stats, .contact-form-container {
             opacity: 0;
             transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
         
-        .feature-item.animate, .show-card.animate, .section-title.animate, .gallery-item.animate {
+        .feature-card.animated, .show-item.animated, .about-stats.animated, .contact-form-container.animated {
             opacity: 1;
             transform: translateY(0);
         }
         
-        .feature-item:nth-child(2), .show-card:nth-child(2) {
+        .feature-card:nth-child(2) {
             transition-delay: 0.2s;
         }
         
-        .feature-item:nth-child(3), .show-card:nth-child(3) {
+        .feature-card:nth-child(3) {
             transition-delay: 0.4s;
         }
         
